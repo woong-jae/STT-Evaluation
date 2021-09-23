@@ -1,42 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import InputSide from './InputSide';
+import OutputSide from './OutputSide';
 const MainPageWrap = styled.div`
-
-`;
-
-const ApiListWrap = styled.div`
-
-`;
-
-const PlusBtn = styled.button`
-
-`;
-
-const UploadWrap = styled.div`
-
-`;
-
-const OrgTextWrap = styled.div`
-
-`;
-
-const RunBtn = styled.button`
-
-`;
-
-const ResultListWrap = styled.div`
-
-`;
-
-const ResultContent = styled.div`
-
+    display: flex;
 `;
 
 const MainPage = () => {
     return (
         <MainPageWrap>
-
+            <InputSide></InputSide>
+            <OutputSide></OutputSide>
         </MainPageWrap>
     );
 }
