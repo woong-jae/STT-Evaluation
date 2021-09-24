@@ -3,7 +3,8 @@ import styled from 'styled-components';
 
 const OutputSideWrap = styled.div`
     display: flex;
-    width: 68%;
+    margin-left: 5%;
+    width: 70%;
     height: 90%;
     align-self: center;
     background-color: gray;
