@@ -7,7 +7,6 @@ const OutputSideWrap = styled.div`
     width: 70%;
     height: 90%;
     align-self: center;
-    background-color: gray;
 `;
 
 const OutputSide = () => {

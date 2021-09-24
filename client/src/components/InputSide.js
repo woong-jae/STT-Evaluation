@@ -9,7 +9,9 @@ import logo from '../image/beanz_logo.png';
 const InputSideWrap = styled.div`
     display: flex;
     flex-direction: column;
-    width: 20%;
+    border: none;
+    max-width: 250px;
+    background-color: rgba(246, 246, 246, 0.5);
 `;
 
 const LogoImage = styled.img`
@@ -20,7 +22,6 @@ const LogoImage = styled.img`
 `;
 
 const RunBtn = styled.button`
-    display: fixed;
     height: 50px;
     width: auto;
     margin: 10px;
@@ -33,7 +34,7 @@ const InputSide = () => {
             <ApiList></ApiList>
             <FileUpload></FileUpload>
             <OrgText></OrgText>
-            <RunBtn></RunBtn>
+            <RunBtn>Run Button^^</RunBtn>
         </InputSideWrap>
     );
 }
