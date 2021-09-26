@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const ApiListWrap = styled.div`
@@ -7,6 +7,7 @@ const ApiListWrap = styled.div`
     height: 30%;
     width: auto;
     margin: 10px;
+    overflow: auto;
 `;
 
 const ApiContent = styled.div`
@@ -35,13 +36,24 @@ const ApiPlusBtn = styled.button`
 `;
 
 const ApiList = () => {
+    const [apiUrl, setApiUrl] = useState([""]);
+
+    const handlePlus = () => {
+        const temp = [...apiUrl];
+        temp.push("");
+        setApiUrl(temp);
+    }
+
     return (
         <ApiListWrap>
-            <ApiContent>
-                <NameInput type="text" placeholder="Name"/>
-                <UrlInput type="text"placeholder="Url"/>
-            </ApiContent>
-            <ApiPlusBtn>plus button^^</ApiPlusBtn>
+            {apiUrl.map(url => (
+                <ApiContent>
+                    <NameInput type="text" placeholder="Name"/>
+                    <UrlInput type="text"placeholder="Url"/>
+                </ApiContent>
+            ))}
+            
+            <ApiPlusBtn onClick={handlePlus}>plus button^^</ApiPlusBtn>
         </ApiListWrap>
     );
 }
