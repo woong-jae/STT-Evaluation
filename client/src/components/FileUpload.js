@@ -18,7 +18,7 @@ const FileInput = styled.input`
 const FileUpload = () => {
     return (
         <FileUploadWrap>
-            <FileInput type="file"/>
+            <FileInput type="file" accept=".mp3,audio/*"/>
         </FileUploadWrap>
     );
 }
