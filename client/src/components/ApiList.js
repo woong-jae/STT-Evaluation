@@ -3,57 +3,29 @@ import styled from 'styled-components';
 
 const ApiListWrap = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     height: 30%;
     width: auto;
     margin: 10px;
     overflow: auto;
 `;
 
-const ApiContent = styled.div`
-    display: flex;
-    height: 25%;
-    width: auto;
-    margin: 10px;
-`;
-
-const NameInput = styled.input`
-    height: auto;
-    width: 50px;
-    margin: 10px;
-`;
-
-const UrlInput = styled.input`
-    height: auto;
-    width: 100px;
-    margin: 10px;
-`;
-
-const ApiPlusBtn = styled.button`
-    height: 15%;
-    width: auto;
+const ApiSelectBtn = styled.button`
+    height: 40%;
+    width: 40%;
     margin: 10px;
 `;
 
 const ApiList = () => {
-    const [apiUrl, setApiUrl] = useState([""]);
-
-    const handlePlus = () => {
-        const temp = [...apiUrl];
-        temp.push("");
-        setApiUrl(temp);
-    }
+    const [apiName, setApiName] = useState("");
 
     return (
         <ApiListWrap>
-            {apiUrl.map(url => (
-                <ApiContent>
-                    <NameInput type="text" placeholder="Name"/>
-                    <UrlInput type="text"placeholder="Url"/>
-                </ApiContent>
-            ))}
+            <ApiSelectBtn value="Kakao" onClick={() => setApiName("Kakao")}>Kakao</ApiSelectBtn>
+            <ApiSelectBtn value="Naver" onClick={() => setApiName("Naver")}>Naver</ApiSelectBtn>
+            <ApiSelectBtn value="Google" onClick={() => setApiName("Google")}>Google</ApiSelectBtn>
+            <ApiSelectBtn value="Azure" onClick={() => setApiName("Azure")}>Azure</ApiSelectBtn>
             
-            <ApiPlusBtn onClick={handlePlus}>plus button^^</ApiPlusBtn>
         </ApiListWrap>
     );
 }
