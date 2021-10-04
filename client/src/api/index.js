@@ -2,7 +2,7 @@ import axios from "axios";
 import dotenv from "dotenv";
 dotenv.config();
 
-export const kakaoSTT = async (mp3) => {
+export const kakaoSTT = async (wav) => {
     const rq = axios.create({
         baseURL: "https://kakaoi-newtone-openapi.kakao.com/",
         headers: {
@@ -11,6 +11,6 @@ export const kakaoSTT = async (mp3) => {
             'Authorization': `KakaoAK ${process.env.REACT_APP_KAKAO_KEY}`
         }
     });
-    const res = await rq.post('v1/recognize', mp3);
+    const res = await rq.post('v1/recognize', wav);
     return res;
 }
