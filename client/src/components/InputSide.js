@@ -28,13 +28,24 @@ const RunBtn = styled.button`
     margin: 10px;
 `;
 
-const InputSide = () => {
+const InputSide = (props) => {
     const [apiName, setApiName] = useState("");
     const [fileName, setFileName] = useState("");
-    const [displayText, setDisplayText] = useState('INITIALIZED: ready to test speech...');
+    
     
     const handleRun = () => {
+        if (apiName == "Kakao") {
 
+        }
+        if (apiName == "Naver") {
+
+        }
+        if (apiName == "Google") {
+
+        }
+        if (apiName == "Azure") {
+            AzureSTT.fileChange(fileName, props.setDisplayText)
+        }
     }
 
     return (
@@ -43,7 +54,7 @@ const InputSide = () => {
             <ApiList setApiName={setApiName}></ApiList>
             <FileUpload setFileName={setFileName}></FileUpload>
             <OrgText></OrgText>
-            <RunBtn onClick={() => AzureSTT.fileChange(fileName, setDisplayText)}>Run Button^^</RunBtn>
+            <RunBtn onClick={handleRun}>Run Button^^</RunBtn>
         </InputSideWrap>
     );
 }

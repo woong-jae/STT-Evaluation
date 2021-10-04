@@ -12,11 +12,11 @@ const OutputSideWrap = styled.div`
     white-space: nowrap;
 `;
 
-const OutputSide = () => {
+const OutputSide = (props) => {
     return (
         <OutputSideWrap>
             <OutputCard>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin mollis erat in sollicitudin congue. Curabitur vehicula arcu dolor, eu iaculis diam faucibus et. Fusce tempor sapien nulla, eu rhoncus ex accumsan id. Nulla at massa nec urna finibus vestibulum a in erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc feugiat dapibus posuere. Donec semper tempor felis vel condimentum. Fusce ex dolor, interdum nec maximus id, ullamcorper nec nunc. Curabitur eros velit, imperdiet vitae efficitur gravida, fermentum eget metus. Mauris congue nisi a dolor iaculis, vitae luctus dui finibus.
+                {props.displayText}
             </OutputCard>
         </OutputSideWrap>
     );

@@ -25,6 +25,6 @@ export async function fileChange(fileName, setDisplayText) {
             displayText = 'ERROR: Speech was cancelled or could not be recognized. Ensure your microphone is working properly.';
         }
 
-        setDisplayText(fileInfo + displayText);
+        setDisplayText(displayText);
     });
 }
