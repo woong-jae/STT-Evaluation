@@ -1,5 +1,6 @@
 import axios from "axios";
 import dotenv from "dotenv";
+import fs from "fs";
 dotenv.config();
 
 export const kakaoSTT = async (wav) => {
@@ -11,11 +12,11 @@ export const kakaoSTT = async (wav) => {
             'Authorization': `KakaoAK ${process.env.REACT_APP_KAKAO_KEY}`
         }
     });
-    const res = await rq.post('v1/recognize', wav);
+    const data = fs.createReadStream(wav);
+    const res = await rq.post('v1/recognize', data);
     return res;
 }
 
-import fs from "fs";
 export const ClovaSTT = async (filePath) => {
     // 현재는 로컬에 저장된 파일 경로를 받고, 열어서 stt 수행
     const url = `https://naveropenapi.apigw.ntruss.com/recog`;
