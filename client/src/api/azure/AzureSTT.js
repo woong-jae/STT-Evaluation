@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import { getTokenOrRefresh } from './token_util';
 import { ResultReason } from 'microsoft-cognitiveservices-speech-sdk';
 

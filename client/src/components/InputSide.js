@@ -6,7 +6,7 @@ import FileUpload from './FileUpload';
 import OrgText from './OrgText';
 import logo from '../image/beanz_logo.png';
 import * as AzureSTT from '../api/azure/AzureSTT';
-import { googleSTT } from '../api';
+import * as API from "../api";
 
 const InputSideWrap = styled.div`
     display: flex;
@@ -33,16 +33,25 @@ const InputSide = (props) => {
     const [apiName, setApiName] = useState("");
     const [fileName, setFileName] = useState("");
     
-    
-    const handleRun = () => {
+    const handleRun = async () => {
         if (apiName === "Kakao") {
-
+            var reader = new FileReader();
+            reader.onload = async function(e) {
+                // binary data
+                const res = await API.kakaoSTT(e.target.result);
+                console.log(res);
+            };
+            reader.onerror = function(e) {
+                // error occurred
+                console.log('Error : ' + e.type);
+            };
+            reader.readAsBinaryString(fileName);
         }
         if (apiName === "Naver") {
 
         }
         if (apiName === "Google") {
-            googleSTT(fileName);
+            API.googleSTT(fileName)
         }
         if (apiName === "Azure") {
             AzureSTT.fileChange(fileName, props.setDisplayText)
