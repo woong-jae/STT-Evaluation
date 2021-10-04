@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import InputSide from './InputSide';
@@ -10,10 +10,12 @@ const MainPageWrap = styled.div`
 `;
 
 const MainPage = () => {
+    const [displayText, setDisplayText] = useState('INITIALIZED: ready to test speech...');
+
     return (
         <MainPageWrap>
-            <InputSide></InputSide>
-            <OutputSide></OutputSide>
+            <InputSide setDisplayText={setDisplayText}></InputSide>
+            <OutputSide displayText={displayText}></OutputSide>
         </MainPageWrap>
     );
 }

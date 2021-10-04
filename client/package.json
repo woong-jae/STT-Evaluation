@@ -10,10 +10,13 @@
     "google-auth-library": "^7.10.0",
     "install": "^0.13.0",
     "npm": "^7.24.1",
+    "fs": "^0.0.1-security",
+    "microsoft-cognitiveservices-speech-sdk": "^1.18.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
     "styled-components": "^5.3.1",
+    "universal-cookie": "^4.0.4",
     "web-vitals": "^1.0.1"
   },
   "scripts": {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const FileUploadWrap = styled.div`
@@ -15,10 +15,11 @@ const FileInput = styled.input`
     margin: 15px;
 `;
 
-const FileUpload = () => {
+const FileUpload = (props) => {
+
     return (
         <FileUploadWrap>
-            <FileInput type="file" accept=".mp3,audio/*"/>
+            <FileInput type="file" accept=".mp3,audio/*" onChange={(e) => props.setFileName(e.target.files[0])}/>
         </FileUploadWrap>
     );
 }
