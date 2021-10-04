@@ -5,7 +5,7 @@ import ApiList from './ApiList';
 import FileUpload from './FileUpload';
 import OrgText from './OrgText';
 import logo from '../image/beanz_logo.png';
-import AzureSTT from '../api/azure/AzureSTT';
+import * as AzureSTT from '../api/azure/AzureSTT';
 
 const InputSideWrap = styled.div`
     display: flex;
@@ -31,18 +31,19 @@ const RunBtn = styled.button`
 const InputSide = () => {
     const [apiName, setApiName] = useState("");
     const [fileName, setFileName] = useState("");
-
+    const [displayText, setDisplayText] = useState('INITIALIZED: ready to test speech...');
+    
     const handleRun = () => {
 
     }
-    
+
     return (
         <InputSideWrap>
             <LogoImage src={logo} alt="logo image"/>
             <ApiList setApiName={setApiName}></ApiList>
             <FileUpload setFileName={setFileName}></FileUpload>
             <OrgText></OrgText>
-            <RunBtn onClick={handleRun}>Run Button^^</RunBtn>
+            <RunBtn onClick={() => AzureSTT.fileChange(fileName, setDisplayText)}>Run Button^^</RunBtn>
         </InputSideWrap>
     );
 }
