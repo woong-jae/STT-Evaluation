@@ -6,6 +6,7 @@ import FileUpload from './FileUpload';
 import OrgText from './OrgText';
 import logo from '../image/beanz_logo.png';
 import * as AzureSTT from '../api/azure/AzureSTT';
+import { googleSTT } from '../api';
 
 const InputSideWrap = styled.div`
     display: flex;
@@ -34,16 +35,16 @@ const InputSide = (props) => {
     
     
     const handleRun = () => {
-        if (apiName == "Kakao") {
+        if (apiName === "Kakao") {
 
         }
-        if (apiName == "Naver") {
+        if (apiName === "Naver") {
 
         }
-        if (apiName == "Google") {
-
+        if (apiName === "Google") {
+            googleSTT(fileName);
         }
-        if (apiName == "Azure") {
+        if (apiName === "Azure") {
             AzureSTT.fileChange(fileName, props.setDisplayText)
         }
     }
