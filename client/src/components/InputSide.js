@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import ApiList from './ApiList';
 import FileUpload from './FileUpload';
 import OrgText from './OrgText';
 import logo from '../image/beanz_logo.png';
+import AzureSTT from '../api/azure/AzureSTT';
 
 const InputSideWrap = styled.div`
     display: flex;
@@ -28,13 +29,20 @@ const RunBtn = styled.button`
 `;
 
 const InputSide = () => {
+    const [apiName, setApiName] = useState("");
+    const [fileName, setFileName] = useState("");
+
+    const handleRun = () => {
+
+    }
+    
     return (
         <InputSideWrap>
             <LogoImage src={logo} alt="logo image"/>
-            <ApiList></ApiList>
-            <FileUpload></FileUpload>
+            <ApiList setApiName={setApiName}></ApiList>
+            <FileUpload setFileName={setFileName}></FileUpload>
             <OrgText></OrgText>
-            <RunBtn>Run Button^^</RunBtn>
+            <RunBtn onClick={handleRun}>Run Button^^</RunBtn>
         </InputSideWrap>
     );
 }

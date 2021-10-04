@@ -16,16 +16,13 @@ const ApiSelectBtn = styled.button`
     margin: 10px;
 `;
 
-const ApiList = () => {
-    const [apiName, setApiName] = useState("");
-
+const ApiList = (props) => {
     return (
         <ApiListWrap>
-            <ApiSelectBtn value="Kakao" onClick={() => setApiName("Kakao")}>Kakao</ApiSelectBtn>
-            <ApiSelectBtn value="Naver" onClick={() => setApiName("Naver")}>Naver</ApiSelectBtn>
-            <ApiSelectBtn value="Google" onClick={() => setApiName("Google")}>Google</ApiSelectBtn>
-            <ApiSelectBtn value="Azure" onClick={() => setApiName("Azure")}>Azure</ApiSelectBtn>
-            
+            <ApiSelectBtn value="Kakao" onClick={() => props.setApiName("Kakao")}>Kakao</ApiSelectBtn>
+            <ApiSelectBtn value="Naver" onClick={() => props.setApiName("Naver")}>Naver</ApiSelectBtn>
+            <ApiSelectBtn value="Google" onClick={() => props.setApiName("Google")}>Google</ApiSelectBtn>
+            <ApiSelectBtn value="Azure" onClick={() => props.setApiName("Azure")}>Azure</ApiSelectBtn>
         </ApiListWrap>
     );
 }
