@@ -43,7 +43,7 @@ const InputSide = (props) => {
 
         }
         if (apiName === "Google") {
-
+            API.googleSTT(fileName)
         }
         if (apiName === "Azure") {
             AzureSTT.fileChange(fileName, props.setDisplayText)
