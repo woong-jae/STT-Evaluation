@@ -35,17 +35,9 @@ const InputSide = (props) => {
     
     const handleRun = async () => {
         if (apiName === "Kakao") {
-            var reader = new FileReader();
-            reader.onload = async function(e) {
-                // binary data
-                const res = await API.kakaoSTT(e.target.result);
-                console.log(res);
-            };
-            reader.onerror = function(e) {
-                // error occurred
-                console.log('Error : ' + e.type);
-            };
-            reader.readAsBinaryString(fileName);
+            const data = new FormData();
+            data.append('file', fileName);
+            API.kakaoSTT(data);
         }
         if (apiName === "Naver") {
 

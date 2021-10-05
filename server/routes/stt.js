@@ -1,9 +1,9 @@
 import express from 'express';
-
-import { kakaoSTT } from "../controllers/stt.js";
+import { kakao, ibmWatson } from "../controllers/stt.js";
 
 const router = express.Router();
 
-router.post('/kakao', kakaoSTT);
+router.post('/kakao', kakao);
+router.post('/ibm', ibmWatson);
 
 export default router;

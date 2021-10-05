@@ -1,4 +1,16 @@
+import axios from "axios";
 
+const API = axios.create(
+    { 
+        baseURL: 'http://localhost:4000/', 
+        headers: {
+            // 'Content-Type': 'application/octet-stream'
+        }
+    }
+);
+
+export const kakaoSTT = (wav) => API.post('stt/kakao', wav);
+export const ibmWatsonSTT = (wav) => API.post('stt/ibm', wav);
 
 // export const ClovaSTT = async (filePath) => {
 //     // 현재는 로컬에 저장된 파일 경로를 받고, 열어서 stt 수행
