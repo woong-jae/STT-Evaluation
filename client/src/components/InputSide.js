@@ -40,7 +40,9 @@ const InputSide = (props) => {
             API.kakaoSTT(data);
         }
         if (apiName === "Naver") {
-
+            const data = new FormData();
+            data.append('file', fileName);
+            API.clovaSTT(data);
         }
         if (apiName === "Google") {
             API.googleSTT(fileName)

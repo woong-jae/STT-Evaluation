@@ -49,3 +49,23 @@ export const ibmWatson = (req, res) => {
           res.status(404).json({ message: err });
         });
 }
+
+export const clova = async (req, res) => {
+  const rq = axios.create({
+    baseURL: "https://naveropenapi.apigw.ntruss.com/recog",
+    headers: {
+      "Content-Type": "application/octet-stream",
+      "X-NCP-APIGW-API-KEY-ID": process.env.CLOVA_KEY_ID,
+      "X-NCP-APIGW-API-KEY": process.env.CLOVA_KEY,
+    },
+  });
+
+  try {
+    const result = await rq.post('/v1/stt?lang=Kor', req.file.buffer);
+    console.log(result.data);
+    res.status(200).send(result.data);
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({ message: error });
+  }
+};
