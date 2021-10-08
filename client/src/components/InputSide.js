@@ -45,7 +45,19 @@ const InputSide = (props) => {
             API.clovaSTT(data);
         }
         if (apiName === "Google") {
-            API.googleSTT(fileName)
+            const data = new FormData();
+            const reader = new FileReader();
+            if (fileName) {
+                reader.readAsDataURL(fileName);
+                reader.onload = () => {
+                    const fileBase64 = reader.result.slice(22);
+                    data.append('file', fileBase64);
+                    API.googleSTT(data)
+                }
+                reader.onerror = () => {
+                    console.log("Base64 encoding failed");
+                };
+            }
         }
         if (apiName === "Azure") {
             AzureSTT.fileChange(fileName, props.setDisplayText)
