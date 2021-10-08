@@ -25,9 +25,9 @@ const ApiSelectBtn = styled.div`
   cursor: pointer;
   border-radius: 5px;
   &:hover {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border: 2px solid lightgray;
   }
-  ${({ active }) => active && `border: 2px solid #2d6bac`};
+  ${({ active }) => active && `box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);`};
 `;
 
 const ApiList = ({ apiName, setApiName }) => {

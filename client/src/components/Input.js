@@ -6,6 +6,7 @@ import FileUpload from "./FileUpload";
 import OrgText from "./OrgText";
 import logo from "../image/beanz_logo.png";
 import * as API from "../api";
+import { wordErrorRate } from '../utils/wer';
 
 const Wrapper = styled.div`
   display: flex;
@@ -61,38 +62,38 @@ const Input = (props) => {
 
   const handleRun = async () => {
     const data = new FormData();
-    data.append("file", fileName);
-    if (apiName === "Kakao") {
-      API.ibmWatsonSTT(data);
+    data.append('file', fileName);
+    if (apiName.Kakao) {
+        const ret = await API.kakaoSTT(data);
+        console.log("WER: " + wordErrorRate(ret.data.value, "헤이 카카오"));
+        console.log("Duration: " + ret.data.duration);
     }
-    if (apiName === "ibm") {
-      API.ibmWatsonSTT(data);
+    if (apiName.Ibm) {
+        API.ibmWatsonSTT(data);
     }
-    if (apiName === "Naver") {
-      const data = new FormData();
-      data.append("file", fileName);
-      API.clovaSTT(data);
+    if (apiName.Naver) {
+        API.clovaSTT(data);
     }
-    if (apiName === "Google") {
-      const data = new FormData();
-      const reader = new FileReader();
-      if (fileName) {
-        reader.readAsDataURL(fileName);
-        reader.onload = () => {
-          const fileBase64 = reader.result.slice(22);
-          data.append("file", fileBase64);
-          API.googleSTT(data);
-        };
-        reader.onerror = () => {
-          console.log("Base64 encoding failed");
-        };
-      }
+    if (apiName.Google) {
+        const data = new FormData();
+        const reader = new FileReader();
+        if (fileName) {
+            reader.readAsDataURL(fileName);
+            reader.onload = () => {
+                const fileBase64 = reader.result.slice(22);
+                data.append('file', fileBase64);
+                API.googleSTT(data)
+            }
+            reader.onerror = () => {
+                console.log("Base64 encoding failed");
+            };
+        }
     }
-    if (apiName === "Azure") {
-      const ret = await API.azureSTT(data);
-      props.setDisplayText(ret.data);
+    if (apiName.Azure) {
+        const ret = await API.azureSTT(data);
+        props.setDisplayText(ret.data);
     }
-  };
+}
 
   return (
     <Wrapper>
