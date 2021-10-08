@@ -2,6 +2,7 @@ import axios from "axios";
 import dotenv from "dotenv";
 import SpeechToTextV1 from 'ibm-watson/speech-to-text/v1.js';
 import { IamAuthenticator } from 'ibm-watson/auth/index.js';
+import { auth } from "google-auth-library";
 
 dotenv.config();
 
@@ -69,3 +70,34 @@ export const clova = async (req, res) => {
     res.status(404).json({ message: error });
   }
 };
+
+export const google = async (req, res) => {
+  const API_KEY = process.env.REACT_APP_GOOGLE_KEY;
+  const client = auth.fromAPIKey(API_KEY);
+  const url = "https://speech.googleapis.com/v1/speech:recognize";
+  const request = {
+    audio: {
+      content: req.body.file
+    },
+    config: {
+      encoding: "LINEAR16",
+      sampleRateHertz: 16000,
+      languageCode: "ko-KR"
+    }
+  }
+
+  await client.request({
+    url,
+    method: "POST",
+    data: request,
+  }).then((response) => {
+      const transcription = response.data.results
+        .map((result) => result.alternatives[0].transcript)
+        .join("\n");
+      console.log(transcription);
+      res.status(200).send(transcription);
+  }).catch((err) => {
+      console.log("error :", err);
+      res.status(404).json({ message: err });
+  });
+}
