@@ -7,51 +7,59 @@ import { auth } from "google-auth-library";
 dotenv.config();
 
 export const kakao = async (req, res) => {
-    const rq = axios.create({
-        baseURL: "https://kakaoi-newtone-openapi.kakao.com/",
-        headers: {
-            'Transfer-Encoding': 'chunked', 
-            'Content-Type': 'application/octet-stream', 
-            'Authorization': `KakaoAK ${process.env.KAKAO_KEY}`
-        }
-    });
+  console.log("Requesting Kakao STT API...");
+  const rq = axios.create({
+      baseURL: "https://kakaoi-newtone-openapi.kakao.com/",
+      headers: {
+          'Transfer-Encoding': 'chunked', 
+          'Content-Type': 'application/octet-stream', 
+          'Authorization': `KakaoAK ${process.env.KAKAO_KEY}`
+      }
+  });
 
-    try {
-        const result = await rq.post('v1/recognize', req.file.buffer);
-        console.log(result.data);
-        res.status(200).send(result.data);
-    } catch (error) {
-        console.log(error);
-        res.status(404).json({ message: error });
-    }
+  try {
+      var nStart = new Date().getTime();
+      const result = await rq.post('v1/recognize', req.file.buffer);
+      var nEnd =  new Date().getTime();
+      const filtered_res = JSON.parse(result.data.slice(result.data.indexOf("finalResult") - 9, result.data.lastIndexOf("}") + 1));
+      filtered_res.duration = nEnd - nStart + "ms";
+      res.status(200).json(filtered_res);
+  } catch (error) {
+      console.log(error);
+      res.status(404).json({ message: error });
+  }
 }
 
 export const ibmWatson = (req, res) => {
-    const speechToText = new SpeechToTextV1({
-        authenticator: new IamAuthenticator({
-          apikey: process.env.IBM_KEY,
-        }),
-        serviceUrl: 'https://api.kr-seo.speech-to-text.watson.cloud.ibm.com/instances/1ff2f1d2-a980-411c-8102-2a67b2ddffc9',
-    });
+  console.log("Requesting IBM Watson STT API...");
+  const speechToText = new SpeechToTextV1({
+      authenticator: new IamAuthenticator({
+        apikey: process.env.IBM_KEY,
+      }),
+      serviceUrl: 'https://api.kr-seo.speech-to-text.watson.cloud.ibm.com/instances/1ff2f1d2-a980-411c-8102-2a67b2ddffc9',
+  });
 
-    const recognizeParams = {
-        audio: req.file.buffer,
-        contentType: 'audio/wav',
-        model: 'ko-KR_Multimedia',
-    };
+  const recognizeParams = {
+      audio: req.file.buffer,
+      contentType: 'audio/wav',
+      model: 'ko-KR_Telephony',
+  };
 
-    speechToText.recognize(recognizeParams)
-        .then(speechRecognitionResults => {
-          console.log(JSON.stringify(speechRecognitionResults, null, 2));
-          res.status(200).json(speechRecognitionResults);
-        })
-        .catch(err => {
-          console.log('error:', err);
-          res.status(404).json({ message: err });
-        });
+  var nStart = new Date().getTime();
+  speechToText.recognize(recognizeParams)
+      .then(speechRecognitionResults => {
+        var nEnd =  new Date().getTime();
+        speechRecognitionResults.result.duration = nEnd - nStart + "ms";
+        res.status(200).json(speechRecognitionResults.result);
+      })
+      .catch(err => {
+        console.log('error:', err);
+        res.status(404).json({ message: err });
+      });
 }
 
 export const clova = async (req, res) => {
+  console.log("Requesting Naver Clova STT API...");
   const rq = axios.create({
     baseURL: "https://naveropenapi.apigw.ntruss.com/recog",
     headers: {
@@ -72,6 +80,7 @@ export const clova = async (req, res) => {
 };
 
 export const google = async (req, res) => {
+  console.log("Requesting Google STT API...");
   const API_KEY = process.env.GOOGLE_KEY;
   const client = auth.fromAPIKey(API_KEY);
   const url = "https://speech.googleapis.com/v1/speech:recognize";
