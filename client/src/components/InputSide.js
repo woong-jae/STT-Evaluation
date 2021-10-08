@@ -5,7 +5,6 @@ import ApiList from './ApiList';
 import FileUpload from './FileUpload';
 import OrgText from './OrgText';
 import logo from '../image/beanz_logo.png';
-import * as AzureSTT from '../api/azure/AzureSTT';
 import * as API from "../api";
 import { wordErrorRate } from '../utils/wer';
 
@@ -64,7 +63,8 @@ const InputSide = (props) => {
             }
         }
         if (apiName === "Azure") {
-            AzureSTT.fileChange(fileName, props.setDisplayText)
+            const ret = await API.azureSTT(data);
+            props.setDisplayText(ret.data);
         }
     }
 

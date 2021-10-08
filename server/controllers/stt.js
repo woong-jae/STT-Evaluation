@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import SpeechToTextV1 from 'ibm-watson/speech-to-text/v1.js';
 import { IamAuthenticator } from 'ibm-watson/auth/index.js';
 import { auth } from "google-auth-library";
+import { AudioConfig, ResultReason, SpeechConfig, SpeechRecognizer } from 'microsoft-cognitiveservices-speech-sdk';
+import Cookie from 'universal-cookie';
 
 dotenv.config();
 
@@ -108,5 +110,54 @@ export const google = async (req, res) => {
   }).catch((err) => {
       console.log("error :", err);
       res.status(404).json({ message: err });
+  });
+}
+
+export const azure = async(req, res) => {
+  const getTokenOrRefresh = async() => {
+      const cookie = new Cookie();
+      const speechToken = cookie.get('speech-token');
+      const speechKey = process.env.AZURE_KEY;
+      const speechRegion = process.env.AZURE_REGION;
+  
+      const headers = {
+          headers: {
+              'Ocp-Apim-Subscription-Key': speechKey,
+              'Content-Type': 'application/x-www-form-urlencoded'
+          }
+      };
+      const tokenResponse = await axios.post(`https://${speechRegion}.api.cognitive.microsoft.com/sts/v1.0/issueToken`, null, headers);
+
+      if (speechToken === undefined) {
+          try {
+              const token = tokenResponse.data;
+              const region = speechRegion;
+              cookie.set('speech-token', region + ':' + token, {maxAge: 540, path: '/'});
+              return { authToken: token, region: region };
+          } catch (err) {
+              console.log(err.response.data);
+              return { authToken: null, error: err.response.data };
+          }
+      } else {
+          const idx = speechToken.indexOf(':');
+          return { authToken: speechToken.slice(idx + 1), region: speechToken.slice(0, idx) };
+      }
+  }
+  const audioFile = req.file.buffer;
+  const tokenObj = await getTokenOrRefresh();
+  const speechConfig = SpeechConfig.fromAuthorizationToken(tokenObj.authToken, tokenObj.region);
+  speechConfig.speechRecognitionLanguage = 'ko-KR';
+  const audioConfig = AudioConfig.fromWavFileInput(audioFile);
+  const recognizer = new SpeechRecognizer(speechConfig, audioConfig);
+
+  recognizer.recognizeOnceAsync(result => {
+      let textResult;
+      if (result.reason === ResultReason.RecognizedSpeech) {
+          textResult = `RECOGNIZED: Text=${result.text}`
+          res.status(200).send(textResult);
+      } else {
+          textResult = 'ERROR: Speech was cancelled or could not be recognized.';
+          res.status(404).send(textResult);
+      }
   });
 }
