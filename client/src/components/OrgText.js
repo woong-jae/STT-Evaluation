@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const OrgTextWrap = styled.div`
     display: flex;
     flex-direction: column;
-    height: 30%;
+    height: 100%;
     width: auto;
     margin: 10px;
 `;
@@ -12,6 +12,7 @@ const OrgTextWrap = styled.div`
 const OrgTextInput = styled.input`
     width: auto;
     margin: 10px;
+    padding: 10px;
 `;
 
 const OrgText = () => {

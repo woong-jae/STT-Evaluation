@@ -4,13 +4,12 @@ import styled from 'styled-components';
 const FileUploadWrap = styled.div`
     display: flex;
     flex-direction: column;
-    height: 10%;
+    height: 15%;
     width: auto;
     margin: 10px;
 `;
 
 const FileInput = styled.input`
-    height: 30px;
     width: auto;
     margin: 15px;
 `;

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import InputSide from './InputSide';
-import OutputSide from './OutputSide';
+import Input from './Input';
+
 const MainPageWrap = styled.div`
     display: flex;
     background-color: rgba(246, 246, 246, 0.5);
@@ -14,8 +14,7 @@ const MainPage = () => {
 
     return (
         <MainPageWrap>
-            <InputSide setDisplayText={setDisplayText}></InputSide>
-            <OutputSide displayText={displayText}></OutputSide>
+            <Input setDisplayText={setDisplayText}></Input>
         </MainPageWrap>
     );
 }

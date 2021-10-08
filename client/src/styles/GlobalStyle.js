@@ -17,7 +17,7 @@ const GlobalStyle = createGlobalStyle`
         background-attachment: fixed;
     }
 
-    div {
+    div, button {
         background-color: white;
         border: 1px solid rgba(70, 77, 82, 0.082);
         box-shadow: rgb(0 0 0 / 2%) -1px 1px 6px;
