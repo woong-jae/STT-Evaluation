@@ -18,8 +18,8 @@ export const kakao = async (req, res) => {
 
     try {
         const result = await rq.post('v1/recognize', req.file.buffer);
-        console.log(result.data);
-        res.status(200).send(result.data);
+        const filtered_res = result.data.slice(result.data.indexOf("finalResult") - 9, result.data.lastIndexOf("}") + 1);
+        res.status(200).json(JSON.parse(filtered_res));
     } catch (error) {
         console.log(error);
         res.status(404).json({ message: error });
@@ -43,7 +43,7 @@ export const ibmWatson = (req, res) => {
     speechToText.recognize(recognizeParams)
         .then(speechRecognitionResults => {
           console.log(JSON.stringify(speechRecognitionResults, null, 2));
-          res.status(200).json(speechRecognitionResults);
+          res.status(200).json(speechRecognitionResults.result);
         })
         .catch(err => {
           console.log('error:', err);
