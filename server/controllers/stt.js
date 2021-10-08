@@ -36,7 +36,7 @@ export const ibmWatson = (req, res) => {
     const recognizeParams = {
         audio: req.file.buffer,
         contentType: 'audio/wav',
-        model: 'ko-KR_Multimedia',
+        model: 'ko-KR_Telephony',
     };
 
     speechToText.recognize(recognizeParams)

@@ -34,10 +34,13 @@ const InputSide = (props) => {
     const [fileName, setFileName] = useState("");
     
     const handleRun = async () => {
+        const data = new FormData();
+        data.append('file', fileName);
         if (apiName === "Kakao") {
-            const data = new FormData();
-            data.append('file', fileName);
-            API.kakaoSTT(data);
+            API.ibmWatsonSTT(data);
+        }
+        if (apiName === "ibm") {
+            API.ibmWatsonSTT(data);
         }
         if (apiName === "Naver") {
 
