@@ -89,7 +89,8 @@ const Input = (props) => {
       }
     }
     if (apiName === "Azure") {
-      // AzureSTT.fileChange(fileName, props.setDisplayText);
+      const ret = await API.azureSTT(data);
+      props.setDisplayText(ret.data);
     }
   };
 
