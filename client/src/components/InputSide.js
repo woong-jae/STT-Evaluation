@@ -7,6 +7,7 @@ import OrgText from './OrgText';
 import logo from '../image/beanz_logo.png';
 import * as AzureSTT from '../api/azure/AzureSTT';
 import * as API from "../api";
+import { wordErrorRate } from '../utils/wer';
 
 const InputSideWrap = styled.div`
     display: flex;
@@ -37,14 +38,14 @@ const InputSide = (props) => {
         const data = new FormData();
         data.append('file', fileName);
         if (apiName === "Kakao") {
-            API.ibmWatsonSTT(data);
+            const ret = await API.kakaoSTT(data);
+            console.log("WER: " + wordErrorRate(ret.data.value, "헤이 카카오"));
+            console.log("Duration: " + ret.data.duration);
         }
-        if (apiName === "ibm") {
+        if (apiName === "IBM") {
             API.ibmWatsonSTT(data);
         }
         if (apiName === "Naver") {
-            const data = new FormData();
-            data.append('file', fileName);
             API.clovaSTT(data);
         }
         if (apiName === "Google") {
