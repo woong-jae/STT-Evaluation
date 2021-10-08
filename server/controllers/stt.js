@@ -81,7 +81,7 @@ export const clova = async (req, res) => {
 
 export const google = async (req, res) => {
   console.log("Requesting Google STT API...");
-  const API_KEY = process.env.REACT_APP_GOOGLE_KEY;
+  const API_KEY = process.env.GOOGLE_KEY;
   const client = auth.fromAPIKey(API_KEY);
   const url = "https://speech.googleapis.com/v1/speech:recognize";
   const request = {
