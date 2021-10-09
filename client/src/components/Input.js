@@ -86,7 +86,7 @@ const Input = ({ setOrgText }) => {
         const ret = await API.azureSTT(data);
         apiResult.Azure = ret.data;
     }
-    console.log(apiResult);
+    // 파일 입력과 api 선택이 없으면 history push 안되게
     if (fileName!=="" & apiName.Kakao & apiName.Ibm & apiName.Naver & apiName.Google & apiName.Azure) {
       history.push({
         pathname: '/result',
