@@ -91,10 +91,11 @@ const Input = (props) => {
         const reader = new FileReader();
         if (fileName) {
             reader.readAsDataURL(fileName);
-            reader.onload = () => {
+            reader.onload = async () => {
                 const fileBase64 = reader.result.slice(22);
                 data.append('file', fileBase64);
-                API.googleSTT(data)
+                const ret = await API.googleSTT(data);
+                apiResult.Google = ret.data; 
             }
             reader.onerror = () => {
                 console.log("Base64 encoding failed");
