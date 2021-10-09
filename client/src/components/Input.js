@@ -65,22 +65,18 @@ const Input = ({ setOrgText }) => {
   const history = useHistory();
 
   const handleRun = async () => {
-    setLoading(true);
-
     const apiResult = {};
     const data = new FormData();
-    console.log(data);
     data.append('file', fileName);
     if (apiName.Kakao) {
         const ret = await API.kakaoSTT(data);
     }
     if (apiName.Ibm) {
         const ret = await API.ibmWatsonSTT(data);
-        console.log(ret);
     }
     if (apiName.Naver) {
         const ret = await API.clovaSTT(data);
-        apiResult.Clova = ret.data;
+        apiResult.Clova = ret.data.text;
     }
     if (apiName.Google) {
         const ret = await API.googleSTT(data);
@@ -90,14 +86,17 @@ const Input = ({ setOrgText }) => {
         const ret = await API.azureSTT(data);
         apiResult.Azure = ret.data;
     }
-
-    history.push({
-      pathname: '/result',
-      state: { 
-        apiName: apiName,
-        apiResult: apiResult,
-      },
-    });
+    console.log(apiResult);
+    if (fileName!=="" & apiName.Kakao & apiName.Ibm & apiName.Naver & apiName.Google & apiName.Azure) {
+      history.push({
+        pathname: '/result',
+        state: { 
+          apiName: apiName,
+          apiResult: apiResult,
+        },
+      });
+      setLoading(true);
+    }
 }
 
   return (
