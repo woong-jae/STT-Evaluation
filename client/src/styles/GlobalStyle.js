@@ -24,7 +24,7 @@ const GlobalStyle = createGlobalStyle`
         border-radius: 12px;
     }
 
-    input {
+    input, textarea {
         background-color: rgb(245, 245, 245);
         border: 1px solid rgba(70, 77, 82, 0.082);
         box-shadow: rgb(0 0 0 / 2%) -1px 1px 6px;

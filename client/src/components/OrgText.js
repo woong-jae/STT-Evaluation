@@ -1,26 +1,35 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const OrgTextWrap = styled.div`
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: auto;
-    margin: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: auto;
+  margin: 10px;
 `;
 
-const OrgTextInput = styled.input`
-    width: auto;
-    margin: 10px;
-    padding: 10px;
+const OrgTextInput = styled.textarea`
+  width: auto;
+  margin: 10px;
+  padding: 10px;
+  resize: none;
 `;
 
-const OrgText = () => {
-    return (
-        <OrgTextWrap>
-            <OrgTextInput type="text" placeholder="Original Text"/>
-        </OrgTextWrap>
-    );
-}
+const OrgText = ({ setOrgText }) => {
+  const handleChange = (e) => {
+    setOrgText(e.target.value);
+  };
+
+  return (
+    <OrgTextWrap>
+      <OrgTextInput
+        type="text"
+        placeholder="음성파일의 원본 텍스트를 입력하세요"
+        onChange={handleChange}
+      />
+    </OrgTextWrap>
+  );
+};
 
 export default OrgText;

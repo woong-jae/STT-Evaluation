@@ -46,6 +46,7 @@ const RunBtn = styled.button`
   font-size: 1.5em;
   text-align: center;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
   &:hover {
     background-color: #ededed;
   }
@@ -60,6 +61,7 @@ const Input = (props) => {
     Azure: false,
   });
   const [fileName, setFileName] = useState("");
+  const [orgText, setOrgText] = useState("");
   const history = useHistory();
 
   const handleRun = async () => {
@@ -113,10 +115,10 @@ const Input = (props) => {
     <Wrapper>
       <LogoImage src={logo} alt="logo image" />
       <InputWrapper>
-        <ApiList apiName={apiName} setApiName={setApiName}></ApiList>
+        <ApiList apiName={apiName} setApiName={setApiName} />
         <InputInfoWrapper>
-          <FileUpload setFileName={setFileName}></FileUpload>
-          <OrgText />
+          <FileUpload setFileName={setFileName} />
+          <OrgText setOrgText={setOrgText} />
         </InputInfoWrapper>
       </InputWrapper>
       <RunBtn onClick={handleRun}>Run ▶️</RunBtn>
