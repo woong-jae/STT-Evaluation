@@ -10,17 +10,21 @@ const OutputSideWrap = styled.div`
     padding: 0 1rem;
     align-self: center;
     overflow-x: auto;
-    white-space: nowrap;
+    white-space: pre-wrap;
 `;
 
-const OutputSide = (props) => {
+const OutputSide = () => {
     const location = useLocation();
-    console.log(location.state);
+    const resultArr = Object.entries(location.state.apiResult).filter((val)=>val[1]!=="");
+
     return (
         <OutputSideWrap>
-            <OutputCard>
-                {props.displayText}
-            </OutputCard>
+            {resultArr.map((result, index) => (
+                <OutputCard key={index}>
+                    {result[0]}
+                    {result[1]}
+                </OutputCard>
+            ))}
         </OutputSideWrap>
     );
 }

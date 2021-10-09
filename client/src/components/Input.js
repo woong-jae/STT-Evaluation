@@ -81,7 +81,8 @@ const Input = (props) => {
         API.ibmWatsonSTT(data);
     }
     if (apiName.Naver) {
-        API.clovaSTT(data);
+        const ret = await API.clovaSTT(data);
+        apiResult.Clova = ret.data.text;
     }
     if (apiName.Google) {
         const data = new FormData();
@@ -100,12 +101,14 @@ const Input = (props) => {
     }
     if (apiName.Azure) {
         const ret = await API.azureSTT(data);
-        //props.setDisplayText(ret.data);
         apiResult.Azure = ret.data;
     }
     history.push({
       pathname: '/result',
-      state: { apiResult: apiResult },
+      state: { 
+        apiName: apiName,
+        apiResult: apiResult,
+      },
     });
 }
 
