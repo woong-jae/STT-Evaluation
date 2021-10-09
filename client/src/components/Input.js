@@ -69,6 +69,7 @@ const Input = ({ setOrgText }) => {
 
     const apiResult = {};
     const data = new FormData();
+    console.log(data);
     data.append('file', fileName);
     if (apiName.Kakao) {
         const ret = await API.kakaoSTT(data);
@@ -79,7 +80,7 @@ const Input = ({ setOrgText }) => {
     }
     if (apiName.Naver) {
         const ret = await API.clovaSTT(data);
-        apiResult.Clova = ret.data.text;
+        apiResult.Clova = ret.data;
     }
     if (apiName.Google) {
         const ret = await API.googleSTT(data);
