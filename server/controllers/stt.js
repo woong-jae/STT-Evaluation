@@ -5,7 +5,6 @@ import { IamAuthenticator } from 'ibm-watson/auth/index.js';
 import { auth } from "google-auth-library";
 import { AudioConfig, ResultReason, SpeechConfig, SpeechRecognizer } from 'microsoft-cognitiveservices-speech-sdk';
 import Cookie from 'universal-cookie';
-import fs from 'fs';
 
 dotenv.config();
 
