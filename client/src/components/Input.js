@@ -7,7 +7,6 @@ import FileUpload from "./FileUpload";
 import OrgText from "./OrgText";
 import logo from "../image/beanz_logo.png";
 import * as API from "../api";
-import { wordErrorRate } from '../utils/wer';
 
 const Wrapper = styled.div`
   display: flex;
@@ -52,7 +51,7 @@ const RunBtn = styled.button`
   }
 `;
 
-const Input = (props) => {
+const Input = ({ setOrgText }) => {
   const [apiName, setApiName] = useState({
     Google: false,
     Kakao: false,
@@ -61,7 +60,6 @@ const Input = (props) => {
     Azure: false,
   });
   const [fileName, setFileName] = useState("");
-  const [orgText, setOrgText] = useState("");
   const history = useHistory();
 
   const handleRun = async () => {
@@ -70,8 +68,6 @@ const Input = (props) => {
     data.append('file', fileName);
     if (apiName.Kakao) {
         const ret = await API.kakaoSTT(data);
-        console.log("WER: " + wordErrorRate(ret.data.value, "헤이 카카오"));
-        console.log("Duration: " + ret.data.duration);
     }
     if (apiName.Ibm) {
         const ret = await API.ibmWatsonSTT(data);

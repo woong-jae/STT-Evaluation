@@ -1,5 +1,6 @@
 import React from "react";
 import styled from 'styled-components';
+import { wordErrorRate } from '../utils/wer';
 
 const Wrapper = styled.div`
     display: inline-block;
@@ -8,20 +9,29 @@ const Wrapper = styled.div`
     margin: 2rem 1.3rem;
 `
 
-const TextBox = styled.p`
+const ResultContainer = styled.p`
     width: auto;
     height: 80%;
     margin: 10px;
     padding: 10px;
     white-space: normal;
 `
+const AnalysisContainer = styled.p`
 
-const OutputCard = ({ children }) => {
+`
+
+const OutputCard = ({ output, original }) => {
+    const WER = wordErrorRate(output.result, original);
     return (
         <Wrapper>
-           <TextBox>
-               {children}
-           </TextBox> 
+            <ResultContainer>
+               {output.result}
+            </ResultContainer> 
+            <AnalysisContainer>
+                WER: {WER}
+                <br/>
+                Duration: {output.duration}
+            </AnalysisContainer>
         </Wrapper>
     )
 }
