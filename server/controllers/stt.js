@@ -5,7 +5,6 @@ import { IamAuthenticator } from 'ibm-watson/auth/index.js';
 import { auth } from "google-auth-library";
 import { AudioConfig, ResultReason, SpeechConfig, SpeechRecognizer } from 'microsoft-cognitiveservices-speech-sdk';
 import Cookie from 'universal-cookie';
-import fs from 'fs';
 
 dotenv.config();
 
@@ -112,8 +111,7 @@ export const google = async (req, res) => {
         .join("\n");
       var nEnd =  new Date().getTime();
       const duration =  nEnd - nStart + "ms";
-      console.log(transcription, duration);
-      res.status(200).send(transcription);
+      res.status(200).json({ result: transcription, duration });
   }).catch((err) => {
       // console.log("error :", err);
       res.status(404).json({ message: err });
@@ -155,16 +153,15 @@ export const azure = async(req, res) => {
   const speechConfig = SpeechConfig.fromAuthorizationToken(tokenObj.authToken, tokenObj.region);
   speechConfig.speechRecognitionLanguage = 'ko-KR';
   const audioConfig = AudioConfig.fromWavFileInput(audioFile);
+  var nStart = new Date().getTime();
   const recognizer = new SpeechRecognizer(speechConfig, audioConfig);
-
   recognizer.recognizeOnceAsync(result => {
-      let textResult;
+      var nEnd =  new Date().getTime();
       if (result.reason === ResultReason.RecognizedSpeech) {
-          textResult = result.text
-          res.status(200).send(textResult);
+          const duration =  nEnd - nStart + "ms";
+          res.status(200).json({ result : result.text, duration });
       } else {
-          textResult = 'ERROR: Speech was cancelled or could not be recognized.';
-          res.status(404).send(textResult);
+          res.status(404).json({ message: 'ERROR: Speech was cancelled or could not be recognized.' });
       }
   });
 }
