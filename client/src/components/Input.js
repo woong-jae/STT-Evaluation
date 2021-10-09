@@ -80,7 +80,8 @@ const Input = (props) => {
         console.log("Duration: " + ret.data.duration);
     }
     if (apiName.Ibm) {
-        API.ibmWatsonSTT(data);
+        const ret = await API.ibmWatsonSTT(data);
+        console.log(ret);
     }
     if (apiName.Naver) {
         const ret = await API.clovaSTT(data);
