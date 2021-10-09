@@ -1,5 +1,4 @@
 import React from 'react';
-import { useLocation } from 'react-router';
 import styled from 'styled-components';
 import OutputCard from './OutputCard';
 
@@ -13,15 +12,13 @@ const OutputSideWrap = styled.div`
     white-space: pre-wrap;
 `;
 
-const OutputSide = () => {
-    const location = useLocation();
-    const resultArr = Object.entries(location.state.apiResult).filter((val)=>val[1]!=="");
-    console.log(resultArr);
-    console.log(location.state.orgText);
+const OutputSide = ({ orgText, apiResult }) => {
+    const resultArr = Object.entries(apiResult).filter((val)=>val[1]!=="");
+
     return (
         <OutputSideWrap>
             {resultArr.map((result, index) => (
-                <OutputCard key={index} apiName={result[0]} output={result[1]} original={location.state.orgText}/>
+                <OutputCard key={index} apiName={result[0]} output={result[1]} original={orgText}/>
             ))}
         </OutputSideWrap>
     );

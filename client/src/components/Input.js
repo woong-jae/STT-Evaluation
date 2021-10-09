@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router";
 import styled from "styled-components";
 
 import ApiList from "./ApiList";
@@ -52,7 +51,7 @@ const RunBtn = styled.button`
   }
 `;
 
-const Input = () => {
+const Input = ({ setIndex, setOrgText, setApiResult }) => {
   const [apiName, setApiName] = useState({
     Google: false,
     Kakao: false,
@@ -62,42 +61,37 @@ const Input = () => {
   });
   const [fileName, setFileName] = useState("");
   const [loading, setLoading] = useState(false);
-  const [orgText, setOrgText] = useState("");
-  const history = useHistory();
 
   const handleRun = async () => {
     setLoading(true);
-    const apiResult = {};
+    const result = {};
     const data = new FormData();
     data.append('file', fileName);
     if (apiName.Kakao) {
         const ret = await API.kakaoSTT(data);
+        //result.Kakao = ret.data;
     }
     if (apiName.Ibm) {
         const ret = await API.ibmWatsonSTT(data);
+        //result.Ibm = ret.data;
     }
     if (apiName.Naver) {
         const ret = await API.clovaSTT(data);
-        apiResult.Clova = ret.data;
+        result.Naver = ret.data;
     }
     if (apiName.Google) {
         const ret = await API.googleSTT(data);
-        apiResult.Google = ret.data; 
+        result.Google = ret.data; 
     }
     if (apiName.Azure) {
         const ret = await API.azureSTT(data);
-        apiResult.Azure = ret.data;
+        result.Azure = ret.data;
     }
     // 파일 입력과 api 선택이 없으면 history push 안되게
     if (fileName!=="" && (apiName.Kakao || apiName.Ibm || apiName.Naver || apiName.Google || apiName.Azure)) {
       //setLoading(true);
-      history.push({
-        pathname: '/result',
-        state: { 
-          orgText: orgText,
-          apiResult: apiResult,
-        },
-      });
+      setIndex(0);
+      setApiResult(result);
     }
 }
 

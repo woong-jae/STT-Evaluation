@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import Input from './Input';
+import OutputSide from './OutputSide';
 
 const MainPageWrap = styled.div`
     display: flex;
@@ -10,9 +11,16 @@ const MainPageWrap = styled.div`
 `;
 
 const MainPage = () => {
+    const [index, setIndex] = useState(1);
+    const [orgText, setOrgText] = useState("");
+    const [apiResult, setApiResult] = useState({});
+
     return (
         <MainPageWrap>
-            <Input></Input>
+            {index ? 
+                <Input setIndex={setIndex} setOrgText={setOrgText} setApiResult={setApiResult}></Input>
+                :<OutputSide orgText={orgText} apiResult={apiResult}></OutputSide>
+            }
         </MainPageWrap>
     );
 }
