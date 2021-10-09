@@ -23,9 +23,9 @@ export const kakao = async (req, res) => {
       var nStart = new Date().getTime();
       const result = await rq.post('v1/recognize', req.file.buffer);
       var nEnd =  new Date().getTime();
-      const filtered_res = JSON.parse(result.data.slice(result.data.indexOf("finalResult") - 9, result.data.lastIndexOf("}") + 1));
-      filtered_res.duration = nEnd - nStart + "ms";
-      res.status(200).json(filtered_res);
+      const filtered_res = result.data.slice(result.data.indexOf("finalResult") - 9, result.data.lastIndexOf("}") + 1);
+      const duration = nEnd - nStart + "ms";
+      res.status(200).json({ result: filtered_res, duration });
   } catch (error) {
       console.log(error);
       res.status(404).json({ message: error });
@@ -44,15 +44,15 @@ export const ibmWatson = (req, res) => {
   const recognizeParams = {
       audio: req.file.buffer,
       contentType: 'audio/wav',
-      model: 'ko-KR_Telephony',
+      model: 'ko-KR_Multimedia',
   };
 
   var nStart = new Date().getTime();
   speechToText.recognize(recognizeParams)
       .then(speechRecognitionResults => {
         var nEnd =  new Date().getTime();
-        speechRecognitionResults.result.duration = nEnd - nStart + "ms";
-        res.status(200).json(speechRecognitionResults.result);
+        const duration = nEnd - nStart + "ms";
+        res.status(200).json({ result: speechRecognitionResults.result.results[0].alternatives[0].transcript, duration });
       })
       .catch(err => {
         console.log('error:', err);
@@ -72,9 +72,11 @@ export const clova = async (req, res) => {
   });
 
   try {
+    var nStart = new Date().getTime();
     const result = await rq.post('/v1/stt?lang=Kor', req.file.buffer);
-    console.log(result.data);
-    res.status(200).send(result.data);
+    var nEnd =  new Date().getTime();
+    const duration = nEnd - nStart + "ms";
+    res.status(200).json({ result: result.data.text, duration });
   } catch (error) {
     console.log(error);
     res.status(404).json({ message: error });
