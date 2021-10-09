@@ -5,6 +5,7 @@ import { IamAuthenticator } from 'ibm-watson/auth/index.js';
 import { auth } from "google-auth-library";
 import { AudioConfig, ResultReason, SpeechConfig, SpeechRecognizer } from 'microsoft-cognitiveservices-speech-sdk';
 import Cookie from 'universal-cookie';
+import fs from 'fs';
 
 dotenv.config();
 
@@ -86,9 +87,10 @@ export const google = async (req, res) => {
   const API_KEY = process.env.GOOGLE_KEY;
   const client = auth.fromAPIKey(API_KEY);
   const url = "https://speech.googleapis.com/v1/speech:recognize";
+  const fileBase64 = req.file.buffer.toString("base64");
   const request = {
     audio: {
-      content: req.body.file
+      content: fileBase64
     },
     config: {
       encoding: "LINEAR16",
@@ -96,7 +98,8 @@ export const google = async (req, res) => {
       languageCode: "ko-KR"
     }
   }
-
+  
+  var nStart = new Date().getTime();
   await client.request({
     url,
     method: "POST",
@@ -105,10 +108,12 @@ export const google = async (req, res) => {
       const transcription = response.data.results
         .map((result) => result.alternatives[0].transcript)
         .join("\n");
-      console.log(transcription);
+      var nEnd =  new Date().getTime();
+      const duration =  nEnd - nStart + "ms";
+      console.log(transcription, duration);
       res.status(200).send(transcription);
   }).catch((err) => {
-      console.log("error :", err);
+      // console.log("error :", err);
       res.status(404).json({ message: err });
   });
 }

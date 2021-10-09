@@ -65,13 +65,7 @@ const Input = (props) => {
   const history = useHistory();
 
   const handleRun = async () => {
-    const apiResult = {
-      Google: "",
-      Kakao: "",
-      Ibm: "",
-      Naver: "",
-      Azure: "",
-    }
+    const apiResult = {};
     const data = new FormData();
     data.append('file', fileName);
     if (apiName.Kakao) {
@@ -87,23 +81,15 @@ const Input = (props) => {
         apiResult.Clova = ret.data.text;
     }
     if (apiName.Google) {
-        const data = new FormData();
-        const reader = new FileReader();
-        reader.readAsDataURL(fileName);
-        reader.onload = async () => {
-            const fileBase64 = reader.result.slice(22);
-            data.append('file', fileBase64);
-            const ret = await API.googleSTT(data);
-            apiResult.Google = ret.data; 
-        }
-        reader.onerror = () => {
-            console.log("Base64 encoding failed");
-        };
+        const ret = await API.googleSTT(data);
+        console.log(ret.data);
+        apiResult.Google = ret.data; 
     }
     if (apiName.Azure) {
         const ret = await API.azureSTT(data);
         apiResult.Azure = ret.data;
     }
+    console.log(apiResult);
     history.push({
       pathname: '/result',
       state: { 
