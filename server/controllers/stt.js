@@ -153,7 +153,7 @@ export const azure = async(req, res) => {
   recognizer.recognizeOnceAsync(result => {
       let textResult;
       if (result.reason === ResultReason.RecognizedSpeech) {
-          textResult = `RECOGNIZED: Text=${result.text}`
+          textResult = result.text
           res.status(200).send(textResult);
       } else {
           textResult = 'ERROR: Speech was cancelled or could not be recognized.';
