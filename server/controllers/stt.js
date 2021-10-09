@@ -113,7 +113,7 @@ export const google = async (req, res) => {
       const duration =  nEnd - nStart + "ms";
       res.status(200).json({ result: transcription, duration });
   }).catch((err) => {
-      // console.log("error :", err);
+      console.log("error :", err);
       res.status(404).json({ message: err });
   });
 }

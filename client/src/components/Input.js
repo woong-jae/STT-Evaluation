@@ -5,6 +5,7 @@ import styled from "styled-components";
 import ApiList from "./ApiList";
 import FileUpload from "./FileUpload";
 import OrgText from "./OrgText";
+import Loading from "./Loading";
 import logo from "../image/beanz_logo.png";
 import * as API from "../api";
 
@@ -60,9 +61,12 @@ const Input = ({ setOrgText }) => {
     Azure: false,
   });
   const [fileName, setFileName] = useState("");
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   const handleRun = async () => {
+    setLoading(true);
+
     const apiResult = {};
     const data = new FormData();
     data.append('file', fileName);
@@ -79,14 +83,13 @@ const Input = ({ setOrgText }) => {
     }
     if (apiName.Google) {
         const ret = await API.googleSTT(data);
-        console.log(ret.data);
         apiResult.Google = ret.data; 
     }
     if (apiName.Azure) {
         const ret = await API.azureSTT(data);
         apiResult.Azure = ret.data;
     }
-    console.log(apiResult);
+
     history.push({
       pathname: '/result',
       state: { 
@@ -97,17 +100,23 @@ const Input = ({ setOrgText }) => {
 }
 
   return (
-    <Wrapper>
-      <LogoImage src={logo} alt="logo image" />
-      <InputWrapper>
-        <ApiList apiName={apiName} setApiName={setApiName} />
-        <InputInfoWrapper>
-          <FileUpload setFileName={setFileName} />
-          <OrgText setOrgText={setOrgText} />
-        </InputInfoWrapper>
-      </InputWrapper>
-      <RunBtn onClick={handleRun}>Run ▶️</RunBtn>
-    </Wrapper>
+    <>
+      {loading ? (
+        <Loading />
+      ) : (
+        <Wrapper>
+          <LogoImage src={logo} alt="logo image" />
+          <InputWrapper>
+            <ApiList apiName={apiName} setApiName={setApiName} />
+            <InputInfoWrapper>
+              <FileUpload setFileName={setFileName} />
+              <OrgText setOrgText={setOrgText} />
+            </InputInfoWrapper>
+          </InputWrapper>
+          <RunBtn onClick={handleRun}>Run ▶️</RunBtn>
+        </Wrapper>
+      )}
+    </>
   );
 };
 
