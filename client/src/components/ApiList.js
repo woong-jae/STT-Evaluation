@@ -17,6 +17,16 @@ const ApiListWrap = styled.div`
   overflow: auto;
 `;
 
+const ApiListTitle = styled.div`
+  color: gray;
+  margin-top: 10px;
+  width: 70%;
+  text-align: center;
+  height: 5%;
+  border: none;
+  box-shadow: none;
+`;
+
 const ApiSelectBtn = styled.div`
   height: 150px;
   width: 150px;
@@ -27,12 +37,13 @@ const ApiSelectBtn = styled.div`
   &:hover {
     border: 2px solid lightgray;
   }
-  ${({ active }) => active && `box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);`};
+  ${({ active }) => active && `box-shadow: 1px 1px 6px black;`};
 `;
 
 const ApiList = ({ apiName, setApiName }) => {
   return (
     <ApiListWrap>
+      {/* <ApiListTitle>원하는 STT 서비스를 선택하세요</ApiListTitle> */}
       <ApiSelectBtn
         name="Google"
         active={apiName.Google}
