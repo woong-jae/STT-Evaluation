@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import SpeechToTextV1 from 'ibm-watson/speech-to-text/v1.js';
 import { IamAuthenticator } from 'ibm-watson/auth/index.js';
 import { auth } from "google-auth-library";
-import { AudioConfig, ResultReason, SpeechConfig, SpeechRecognizer } from 'microsoft-cognitiveservices-speech-sdk';
+import { AudioConfig, ResultReason, SpeechConfig, SpeechRecognizer, ServicePropertyChannel } from 'microsoft-cognitiveservices-speech-sdk';
 import Cookie from 'universal-cookie';
 
 dotenv.config();
@@ -151,6 +151,7 @@ export const azure = async(req, res) => {
   const audioFile = req.file.buffer;
   const tokenObj = await getTokenOrRefresh();
   const speechConfig = SpeechConfig.fromAuthorizationToken(tokenObj.authToken, tokenObj.region);
+  speechConfig.setServiceProperty('punctuation', 'explicit', ServicePropertyChannel.UriQueryParameter);
   speechConfig.speechRecognitionLanguage = 'ko-KR';
   const audioConfig = AudioConfig.fromWavFileInput(audioFile);
   var nStart = new Date().getTime();
