@@ -92,6 +92,7 @@ const Input = ({ setIndex, setOrgText, setApiResult }) => {
       //setLoading(true);
       setIndex(0);
       setApiResult(result);
+      setLoading(false);
     }
 }
 

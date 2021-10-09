@@ -20,11 +20,19 @@ const AnalysisContainer = styled.p`
 
 `
 
-const OutputCard = ({ output, original }) => {
+const NameContainer = styled.p`
+    height: 20px;
+    text-align: center;
+`
+
+const OutputCard = ({ apiName, output, original }) => {
     const WER = wordErrorRate(output.result, original);
 
     return (
         <Wrapper>
+            <NameContainer>
+                {apiName}
+            </NameContainer>
             <ResultContainer>
                {output.result}
             </ResultContainer> 

@@ -19,7 +19,7 @@ const MainPage = () => {
         <MainPageWrap>
             {index ? 
                 <Input setIndex={setIndex} setOrgText={setOrgText} setApiResult={setApiResult}></Input>
-                :<OutputSide orgText={orgText} apiResult={apiResult}></OutputSide>
+                :<OutputSide setIndex={setIndex} orgText={orgText} apiResult={apiResult}></OutputSide>
             }
         </MainPageWrap>
     );
