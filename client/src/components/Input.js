@@ -52,7 +52,7 @@ const RunBtn = styled.button`
   }
 `;
 
-const Input = ({ setOrgText }) => {
+const Input = () => {
   const [apiName, setApiName] = useState({
     Google: false,
     Kakao: false,
@@ -62,9 +62,11 @@ const Input = ({ setOrgText }) => {
   });
   const [fileName, setFileName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [orgText, setOrgText] = useState("");
   const history = useHistory();
 
   const handleRun = async () => {
+    setLoading(true);
     const apiResult = {};
     const data = new FormData();
     data.append('file', fileName);
@@ -76,7 +78,7 @@ const Input = ({ setOrgText }) => {
     }
     if (apiName.Naver) {
         const ret = await API.clovaSTT(data);
-        apiResult.Clova = ret.data.text;
+        apiResult.Clova = ret.data;
     }
     if (apiName.Google) {
         const ret = await API.googleSTT(data);
@@ -87,15 +89,15 @@ const Input = ({ setOrgText }) => {
         apiResult.Azure = ret.data;
     }
     // 파일 입력과 api 선택이 없으면 history push 안되게
-    if (fileName!=="" & apiName.Kakao & apiName.Ibm & apiName.Naver & apiName.Google & apiName.Azure) {
+    if (fileName!=="" && (apiName.Kakao || apiName.Ibm || apiName.Naver || apiName.Google || apiName.Azure)) {
+      //setLoading(true);
       history.push({
         pathname: '/result',
         state: { 
-          apiName: apiName,
+          orgText: orgText,
           apiResult: apiResult,
         },
       });
-      setLoading(true);
     }
 }
 

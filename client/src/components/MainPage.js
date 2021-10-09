@@ -10,12 +10,9 @@ const MainPageWrap = styled.div`
 `;
 
 const MainPage = () => {
-    const [displayText, setDisplayText] = useState('INITIALIZED: ready to test speech...');
-    const [orgText, setOrgText] = useState("");
-
     return (
         <MainPageWrap>
-            <Input setDisplayText={setDisplayText} setOrgText={setOrgText}></Input>
+            <Input></Input>
         </MainPageWrap>
     );
 }

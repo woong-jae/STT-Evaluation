@@ -22,6 +22,7 @@ const AnalysisContainer = styled.p`
 
 const OutputCard = ({ output, original }) => {
     const WER = wordErrorRate(output.result, original);
+    console.log(WER);
     return (
         <Wrapper>
             <ResultContainer>

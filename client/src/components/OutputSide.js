@@ -13,14 +13,15 @@ const OutputSideWrap = styled.div`
     white-space: pre-wrap;
 `;
 
-const OutputSide = ({ orgText }) => {
+const OutputSide = () => {
     const location = useLocation();
     const resultArr = Object.entries(location.state.apiResult).filter((val)=>val[1]!=="");
-
+    console.log(resultArr);
+    console.log(location.state.orgText);
     return (
         <OutputSideWrap>
             {resultArr.map((result, index) => (
-                <OutputCard key={index} apiName={result[0]} output={result[1]} original={orgText}/>
+                <OutputCard key={index} apiName={result[0]} output={result[1]} original={location.state.orgText}/>
             ))}
         </OutputSideWrap>
     );
