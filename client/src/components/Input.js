@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router";
 import styled from "styled-components";
 
 import ApiList from "./ApiList";
@@ -59,8 +60,16 @@ const Input = (props) => {
     Azure: false,
   });
   const [fileName, setFileName] = useState("");
+  const history = useHistory();
 
   const handleRun = async () => {
+    const apiResult = {
+      Google: "",
+      Kakao: "",
+      Ibm: "",
+      Naver: "",
+      Azure: "",
+    }
     const data = new FormData();
     data.append('file', fileName);
     if (apiName.Kakao) {
@@ -91,8 +100,13 @@ const Input = (props) => {
     }
     if (apiName.Azure) {
         const ret = await API.azureSTT(data);
-        props.setDisplayText(ret.data);
+        //props.setDisplayText(ret.data);
+        apiResult.Azure = ret.data;
     }
+    history.push({
+      pathname: '/result',
+      state: { apiResult: apiResult },
+    });
 }
 
   return (

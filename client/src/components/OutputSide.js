@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router';
 import styled from 'styled-components';
 import OutputCard from './OutputCard';
 
@@ -13,6 +14,8 @@ const OutputSideWrap = styled.div`
 `;
 
 const OutputSide = (props) => {
+    const location = useLocation();
+    console.log(location.state);
     return (
         <OutputSideWrap>
             <OutputCard>
