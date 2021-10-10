@@ -1,48 +1,51 @@
 import React from "react";
-import styled from 'styled-components';
-import { wordErrorRate } from '../utils/wer';
+import styled from "styled-components";
+import { wordErrorRate } from "../utils/wer";
 
 const Wrapper = styled.div`
-    display: inline-block;
-    width: 18rem;
-    height: 655px;
-    margin: 2rem 1.3rem;
-`
+  flex: 0 0 auto;
+  width: 17.5rem;
+  height: 80%;
+  margin: 10px;
+`;
 
 const ResultContainer = styled.p`
-    width: auto;
-    height: 80%;
-    margin: 10px;
-    padding: 10px;
-    white-space: normal;
-`
+  width: auto;
+  height: 80%;
+  margin: 10px;
+  padding: 10px;
+  white-space: normal;
+  overflow-y: auto;
+`;
 const AnalysisContainer = styled.p`
-
-`
+  height: fit-content;
+`;
 
 const NameContainer = styled.p`
-    height: 20px;
-    text-align: center;
-`
+  margin-top: 10px;
+  padding-bottom: 10px;
+  height: 20px;
+  text-align: center;
+  font-weight: 700;
+  border-bottom: 1px solid lightgray;
+`;
 
 const OutputCard = ({ apiName, output, original }) => {
-    const WER = wordErrorRate(output.result, original);
+  const WER = original && wordErrorRate(output.result, original);
 
-    return (
-        <Wrapper>
-            <NameContainer>
-                {apiName}
-            </NameContainer>
-            <ResultContainer>
-               {output.result}
-            </ResultContainer> 
-            <AnalysisContainer>
-                WER: {WER}
-                <br/>
-                Duration: {output.duration}
-            </AnalysisContainer>
-        </Wrapper>
-    )
-}
+  return (
+    <Wrapper>
+      <NameContainer>{apiName}</NameContainer>
+      <ResultContainer>{output.result}</ResultContainer>
+      {original && (
+        <AnalysisContainer>
+          <strong>WER:</strong> {WER}
+          <br />
+          <strong>Duration:</strong> {output.duration}
+        </AnalysisContainer>
+      )}
+    </Wrapper>
+  );
+};
 
 export default OutputCard;
