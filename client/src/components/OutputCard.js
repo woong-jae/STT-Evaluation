@@ -11,14 +11,16 @@ const Wrapper = styled.div`
 
 const ResultContainer = styled.p`
   width: auto;
-  height: 80%;
+  height: 77%;
   margin: 10px;
   padding: 10px;
   white-space: normal;
   overflow-y: auto;
 `;
-const AnalysisContainer = styled.p`
+const AnalysisContainer = styled.div`
   height: fit-content;
+  padding: 10px;
+  width: auto;
 `;
 
 const NameContainer = styled.p`
