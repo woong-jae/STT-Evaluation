@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import ApiList from "./ApiList";
 import FileUpload from "./FileUpload";
 import OrgText from "./OrgText";
 import Loading from "./Loading";
+import Toast from "./Toast";
 import logo from "../image/beanz_logo.png";
 import * as API from "../api";
 
@@ -61,8 +62,14 @@ const Input = ({ setIndex, setOrgText, setApiResult }) => {
   });
   const [fileName, setFileName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(false);
 
   const handleRun = async () => {
+    // 파일 입력이나 api 선택 중 하나라도 안된 경우 Toast 출력하고 함수 exit
+    if (fileName==="" || !(apiName.Kakao || apiName.Ibm || apiName.Naver || apiName.Google || apiName.Azure)) {
+      setIsEmpty(true);
+      return;
+    }
     setLoading(true);
     const result = {};
     const data = new FormData();
@@ -87,14 +94,27 @@ const Input = ({ setIndex, setOrgText, setApiResult }) => {
         const ret = await API.azureSTT(data);
         result.Azure = ret.data;
     }
-    // 파일 입력과 api 선택이 없으면 history push 안되게
-    if (fileName!=="" && (apiName.Kakao || apiName.Ibm || apiName.Naver || apiName.Google || apiName.Azure)) {
-      //setLoading(true);
-      setIndex(0);
-      setApiResult(result);
-      setLoading(false);
-    }
+    setIndex(0);
+    setApiResult(result);
+    setLoading(false);
+    // // 파일 입력과 api 선택이 없으면 안되게
+    // if (fileName!=="" && (apiName.Kakao || apiName.Ibm || apiName.Naver || apiName.Google || apiName.Azure)) {
+    //   // setLoading(true);
+    //   setIndex(0);
+    //   setApiResult(result);
+    //   setLoading(false);
+    // }
+    // else {
+    //   // 파일 입력과 api 선택이 없으면 입력 요구 문구
+    //   setIsEmpty(true);
+    // }
 }
+  // Toast 실행을 위한 isEmpty state 관리
+  useEffect(() => {
+    if (isEmpty) {
+      setTimeout(() => setIsEmpty(false), 2000);
+    }
+  }, [isEmpty]);
 
   return (
     <>
@@ -111,6 +131,7 @@ const Input = ({ setIndex, setOrgText, setApiResult }) => {
             </InputInfoWrapper>
           </InputWrapper>
           <RunBtn onClick={handleRun}>Run ▶️</RunBtn>
+          {isEmpty && <Toast msg="파일 입력과 api를 선택해주세요."/>}
         </Wrapper>
       )}
     </>
