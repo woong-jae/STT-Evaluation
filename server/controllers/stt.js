@@ -23,9 +23,9 @@ export const kakao = async (req, res) => {
       var nStart = new Date().getTime();
       const result = await rq.post('v1/recognize', req.file.buffer);
       var nEnd =  new Date().getTime();
-      const filtered_res = result.data.slice(result.data.indexOf("finalResult") - 9, result.data.lastIndexOf("}") + 1);
+      const filtered_res = JSON.parse(result.data.slice(result.data.indexOf("finalResult") - 9, result.data.lastIndexOf("}") + 1));
       const duration = nEnd - nStart + "ms";
-      res.status(200).json({ result: filtered_res, duration });
+      res.status(200).json({ result: filtered_res.value, duration });
   } catch (error) {
       console.log(error);
       res.status(404).json({ message: error });
