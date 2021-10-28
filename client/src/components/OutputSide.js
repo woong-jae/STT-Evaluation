@@ -20,9 +20,10 @@ const OutputSideWrap = styled.div`
     width: 900px;
     height: 60%;
     padding: 0 1rem;
-    align-self: center;
     overflow-x: auto;
-    white-space: pre-wrap;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
 `;
 
 const LogoImage = styled.img`
@@ -45,11 +46,12 @@ const BackBtn = styled.button`
 
 const OutputSide = ({ setIndex, orgText, apiResult }) => {
     const resultArr = Object.entries(apiResult).filter((val)=>val[1]!=="");
-    
+    const orgOutput = {result: orgText};
     return (
         <Wrapper>
             <LogoImage src={logo} alt="logo image" />
             <OutputSideWrap>
+                <OutputCard apiName={"원본 텍스트"} output={orgOutput} original={false} />
                 {resultArr.map((result, index) => (
                     <OutputCard key={index} apiName={result[0]} output={result[1]} original={orgText}/>
                 ))}
