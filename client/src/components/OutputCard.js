@@ -41,7 +41,7 @@ const OutputCard = ({ apiName, output, original }) => {
       <ResultContainer>{output.result}</ResultContainer>
       {original && (
         <AnalysisContainer>
-          <strong>WER:</strong> {WER}
+          <strong>WER:</strong> {WER.toFixed(2)}
           <br />
           <strong>Duration:</strong> {output.duration}
         </AnalysisContainer>
