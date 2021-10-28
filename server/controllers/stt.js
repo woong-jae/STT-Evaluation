@@ -95,7 +95,7 @@ export const google = async (req, res) => {
     },
     config: {
       encoding: "LINEAR16",
-      sampleRateHertz: 16000,
+      // sampleRateHertz: 16000,
       languageCode: "ko-KR"
     }
   }
