@@ -76,11 +76,11 @@ const Input = ({ setIndex, setOrgText, setApiResult }) => {
     data.append('file', fileName);
     if (apiName.Kakao) {
         const ret = await API.kakaoSTT(data);
-        //result.Kakao = ret.data;
+        result.Kakao = ret.data;
     }
     if (apiName.Ibm) {
         const ret = await API.ibmWatsonSTT(data);
-        //result.Ibm = ret.data;
+        result.Ibm = ret.data;
     }
     if (apiName.Naver) {
         const ret = await API.clovaSTT(data);
