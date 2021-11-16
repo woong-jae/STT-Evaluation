@@ -14,7 +14,7 @@
 ### Installation
 1. Repository를 clone한다.
 ```sh
-
+git clone https://github.com/woong-jae/STT-Evaluation.git
 ```
 2. 서버 디렉토리로 이동한다.
 ```sh
