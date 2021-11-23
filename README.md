@@ -11,6 +11,7 @@
 > ### Prerequisites
 > - ```server```폴더의 ```.env.example```에 있는 내용에 따라 필요한 STT 서비스의 키를 ```.env``` 파일을 새로 만들어 입력한다.
 ### Installation
+> Docker를 이용한 설치는 아래에
 1. Repository를 clone한다.
 ```sh
 git clone https://github.com/woong-jae/STT-Evaluation.git
