@@ -40,6 +40,14 @@ npm install
 ```
 npm start
 ```
+### Installation - via Docker
+> Dockerizing을 위해 Docker Compose를 사용합니다.
+
+- Client
+```sh
+cd client
+docker-compose up -d --build
+```
 ## Contributor
 [woong-jae](https://github.com/woong-jae)
 
