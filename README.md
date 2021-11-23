@@ -46,7 +46,6 @@ Root 디렉토리에서
 ```sh
 docker-compose up -d --build
 ```
-사용을 중지하기 위해서는 ```docker-compose stop```을 입력하면 된다.
 ## Contributor
 [woong-jae](https://github.com/woong-jae)
 
