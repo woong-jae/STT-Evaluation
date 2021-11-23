@@ -43,7 +43,7 @@ npm start
 ### Installation - via Docker
 > Dockerizing을 위해 Docker Compose를 사용합니다.
 
-root 디렉토리에서
+Root 디렉토리에서
 ```sh
 docker-compose up -d --build
 ```
