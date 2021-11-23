@@ -1,0 +1,30 @@
+version: "3.7"
+
+services:
+  stt-eval-client:
+    container_name: stt-eval-client
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    volumes:
+      - './client:/app'
+      - '/app/node_modules'
+    ports:
+      - "3000:3000"
+    expose:
+      - "3000"
+    environment:
+      - NODE_ENV=development
+    restart: "on-failure"
+    stdin_open: true
+    tty: true
+  stt-eval-server:
+    container_name: stt-eval-server
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    expose:
+      - "4000"
+    restart: "on-failure"
