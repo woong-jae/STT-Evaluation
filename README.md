@@ -42,12 +42,11 @@ npm start
 ```
 ### Installation - via Docker
 > Dockerizing을 위해 Docker Compose를 사용합니다.
-
-- Client
 ```sh
-cd client
+// root 디렉토리에서
 docker-compose up -d --build
 ```
+사용을 중지하기 위해서는 ```docker-compose stop```을 입력하면 됩니다.
 ## Contributor
 [woong-jae](https://github.com/woong-jae)
 
