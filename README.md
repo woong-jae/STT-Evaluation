@@ -36,7 +36,7 @@ cd ../client
 npm install
 ```
 7. 클라이언트 실행
-```
+```sh
 npm start
 ```
 ### Installation - via Docker
