@@ -8,9 +8,9 @@
 </div>
 
 ## Getting Started
-### Prerequisites
-- ```server```폴더의 ```.env.example```에 있는 내용에 따라 필요한 STT 서비스의 키를 ```.env``` 파일을 새로 만들어 입력한다.
-- ```server```의 주소와 ```client/src/api/index.js```의 ```baseURL```의 주소를 맞춰준다.
+> ### Prerequisites
+> - ```server```폴더의 ```.env.example```에 있는 내용에 따라 필요한 STT 서비스의 키를 ```.env``` 파일을 새로 만들어 입력한다.
+> - ```server```의 주소와 ```client/src/api/index.js```의 ```baseURL```의 주소를 맞춰준다.
 ### Installation
 1. Repository를 clone한다.
 ```sh
@@ -39,6 +39,14 @@ npm install
 7. 클라이언트 실행
 ```
 npm start
+```
+### Installation - via Docker
+> Dockerizing을 위해 Docker Compose를 사용합니다.
+
+- Client
+```sh
+cd client
+docker-compose up -d --build
 ```
 ## Contributor
 [woong-jae](https://github.com/woong-jae)
